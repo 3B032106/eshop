@@ -19,7 +19,9 @@ Route::get('/', function () {
 });
 
 
-Route::resource('Products', ProductController::class);
+Route::resource('Products', ProductController::class)->only([
+	'index','show','store','update','destroy'
+]);
 
 /* CRUD 路由的使用方式、URL、、HTTP方法、所串接的控制器&方法
 products.index   Products                 GET           HEAD　　　->　　路由的作用：顯示所有 products 資料
