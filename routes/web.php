@@ -18,10 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+/*
 Route::resource('Products', ProductController::class)->only([
 	'index','show','store','update','destroy'
 ]);
+*/
 
 /* CRUD 路由的使用方式、URL、、HTTP方法、所串接的控制器&方法
 products.index   Products                 GET           HEAD　　　->　　路由的作用：顯示所有 products 資料
@@ -32,3 +33,11 @@ products.edit    Products/{Product}/edit  GET           HEAD　　　->　　路
 products.update  Products/{Product}       PUT           PATCH　 　->　　路由的作用：更新 products 資料到資料庫
 products.destroy Products/{Product}       DELETE        DELETE　　->　　路由的作用：刪除 products 的資料
 */
+
+Route::get('Products', [ProductController::class, 'index']);
+Route::get('Products/{Product}', [ProductController::class, 'show']);
+Route::get('Products/create', [ProductController::class, 'create']);
+Route::post('Products', [ProductController::class, 'store']);
+Route::get('Products/{Product}/edit', [ProductController::class, 'edit']);
+Route::patch('Products/{Product}', [ProductController::class, 'update']);
+Route::delete('Products/{Product}', [ProductController::class, 'destroy']);
