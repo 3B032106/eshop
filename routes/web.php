@@ -36,6 +36,8 @@ Route::get('Products/{Product}/edit', [ProductController::class, 'edit']);
 Route::patch('Products/{Product}', [ProductController::class, 'update']);
 Route::delete('Products/{Product}', [ProductController::class, 'destroy']);
 
+Route::resource('cart_items', CartItemController::class)->middleware(['auth', 'verified']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
