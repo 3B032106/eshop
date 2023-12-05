@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +17,6 @@ use App\Http\Controllers\ProductController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-/*
-Route::resource('Products', ProductController::class)->only([
-	'index','show','store','update','destroy'
-]);
-*/
 
 /* CRUD 路由的使用方式、URL、、HTTP方法、所串接的控制器&方法
 products.index   Products                 GET           HEAD　　　->　　路由的作用：顯示所有 products 資料
@@ -41,3 +35,15 @@ Route::post('Products', [ProductController::class, 'store']);
 Route::get('Products/{Product}/edit', [ProductController::class, 'edit']);
 Route::patch('Products/{Product}', [ProductController::class, 'update']);
 Route::delete('Products/{Product}', [ProductController::class, 'destroy']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
